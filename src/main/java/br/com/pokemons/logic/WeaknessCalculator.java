@@ -16,16 +16,13 @@ public class WeaknessCalculator {
     );
 
     public Map<String, Double> calcular(TipoWeak tipo1, TipoWeak tipo2) {
-        // 1. Inicializa o mapa com todos os tipos de ataque causando dano normal (1.0)
+        // inicia o mapa com todos os tipos de ataque causando dano normal (1.0)
         Map<String, Double> damageMultipliers = new HashMap<>();
         for (String type : ALL_TYPES) {
             damageMultipliers.put(type, 1.0);
         }
-
-        // 2. Processa o primeiro tipo
         processarTipo(damageMultipliers, tipo1);
 
-        // 3. Se houver um segundo tipo, processa-o multiplicando os valores existentes
         if (tipo2 != null) {
             processarTipo(damageMultipliers, tipo2);
         }

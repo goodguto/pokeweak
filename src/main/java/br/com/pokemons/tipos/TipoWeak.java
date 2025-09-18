@@ -1,8 +1,9 @@
 package br.com.pokemons.tipos;
 
+import br.com.pokemons.tipos.DamageRelations;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.List;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class TipoWeak {
 
     @JsonProperty("damage_relations")
@@ -15,28 +16,4 @@ public class TipoWeak {
     public void setDamageRelations(DamageRelations damageRelations) {
         this.damageRelations = damageRelations;
     }
-
-    public static class DamageRelations {
-        @JsonProperty("double_damage_from")
-        private List<TypeName> doubleDamageFrom;
-
-        @JsonProperty("half_damage_from")
-        private List<TypeName> halfDamageFrom;
-
-        @JsonProperty("no_damage_from")
-        private List<TypeName> noDamageFrom;
-
-        public List<TypeName> getDoubleDamageFrom() {
-            return doubleDamageFrom;
-        }
-
-        public List<TypeName> getHalfDamageFrom() {
-            return halfDamageFrom;
-        }
-        public List<TypeName> getNoDamageFrom() {
-            return noDamageFrom;
-        }
-
-    }
-
 }

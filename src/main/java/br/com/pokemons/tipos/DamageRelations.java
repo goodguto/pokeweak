@@ -1,8 +1,9 @@
 package br.com.pokemons.tipos;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class DamageRelations {
 
     @JsonProperty("double_damage_from")
