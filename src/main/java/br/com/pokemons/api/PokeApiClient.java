@@ -1,17 +1,38 @@
 package br.com.pokemons.api;
 
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+import br.com.pokemons.tipos.TipoWeak; // Importe sua classe POJO principal
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-@Service
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 public class PokeApiClient {
-    private static final String BASE_URL = "https://pokeapi.co/api/v2/";
+    private static ObjectMapper objectMapper;
+    private static HttpClient httpClient = null;
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    public PokeApiClient(){
+        this.objectMapper = new ObjectMapper();
+        this.httpClient = HttpClient.newHttpClient();
 
-    public String getTipo(String tipo) {
-        String url = BASE_URL + "type/" + tipo.toLowerCase();
-        return restTemplate.getForObject(url, String.class); // retorna JSON puro
     }
+    protected static TipoWeak searchTypePokemon(String nomeDoTipo) throws IOException, InterruptedException {
+        String tipoEmIngles = TranslateTypes.translate(nomeDoTipo); //  traduzindo para não dar erro na hora de buscar na url
+        String url = "https://pokeapi.co/api/v2/type/" + tipoEmIngles;
+
+        // Cria e envia a requisição
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).GET().build();
+        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+        // 4. Se a resposta for OK, converte o JSON para objeto e retorna
+        if (response.statusCode() == 200) {
+            return objectMapper.readValue(response.body(), TipoWeak.class);
+        } else {
+            System.err.println("Tipo não encontrado ou erro na API: " + tipoEmIngles + " (Status: " + response.statusCode() + ")");
+            return null;
+        }
+    }
+
 }
 
