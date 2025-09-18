@@ -1,22 +1,21 @@
 package br.com.pokemons;
 
 import br.com.pokemons.api.TypeWeak;
+import br.com.pokemons.terminal.ConsoleUtils;
+
 import java.util.Map;
 import java.util.Scanner;
 
 public class PokemonsApplication {
 
 	public static void main(String[] args) {
+		ConsoleUtils.imprimirTitulo();
 		Scanner scanner = new Scanner(System.in);
 		TypeWeak analysisService = new TypeWeak();
-
-		System.out.println( "======================================"+
-							"I   Calculadora de Fraquezas Pokémon  I "+
-							"======================================");
 		System.out.print("Digite o tipo primário do Pokémon: ");
 		String tipo1 = scanner.nextLine();
 
-		System.out.print("Digite o tipo secundário (ou deixe em branco e pressione Enter): ");
+		System.out.print("Digite o tipo secundário (ou deixe em branco): ");
 		String tipo2 = scanner.nextLine();
 
 		Map<String, Double> finalMultipliers = analysisService.analisarFraquezas(tipo1, tipo2);
