@@ -23,6 +23,9 @@ public class TipoWeak {
         @JsonProperty("half_damage_from")
         private List<TypeName> halfDamageFrom;
 
+        @JsonProperty("no_damage_from")
+        private List<TypeName> noDamageFrom;
+
         public List<TypeName> getDoubleDamageFrom() {
             return doubleDamageFrom;
         }
@@ -30,13 +33,10 @@ public class TipoWeak {
         public List<TypeName> getHalfDamageFrom() {
             return halfDamageFrom;
         }
-    }
-
-    public static class TypeName {
-        private String name;
-
-        public String getName() {
-            return name;
+        public List<TypeName> getNoDamageFrom() {
+            return noDamageFrom;
         }
+
     }
+
 }

@@ -9,15 +9,15 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 public class PokeApiClient {
-    private static ObjectMapper objectMapper;
-    private static HttpClient httpClient = null;
+    private final ObjectMapper objectMapper;
+    private HttpClient httpClient = null;
 
     public PokeApiClient(){
         this.objectMapper = new ObjectMapper();
         this.httpClient = HttpClient.newHttpClient();
 
     }
-    protected static TipoWeak searchTypePokemon(String nomeDoTipo) throws IOException, InterruptedException {
+    public TipoWeak searchTypePokemon(String nomeDoTipo) throws IOException, InterruptedException {
         String tipoEmIngles = TranslateTypes.translate(nomeDoTipo); //  traduzindo para não dar erro na hora de buscar na url
         String url = "https://pokeapi.co/api/v2/type/" + tipoEmIngles;
 
